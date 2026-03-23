@@ -14,6 +14,9 @@ const Signin = () => {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
+  // reading user later
+  const user = JSON.parse(localStorage.getItem("user"));
+
   // Below we have the useNavigate hookto redirect us to another page on successful login.
   const navigate = useNavigate("");
 
@@ -40,7 +43,7 @@ const Signin = () => {
       setLoading("");
 
       // check whether the user exists as part of your response from the API
-      if(response.data.user){
+      if(response.data && response.data.user){
         // if user is there, definitely the details entered during signin are correct
         // setSuccess('Log in Successful')
 
@@ -49,7 +52,11 @@ const Signin = () => {
          localStorage.setItem("user", JSON.stringify(response.data.user));
 
         // If it is successful, let the user get redirected to another page
-        navigate ("/");
+        if (response.data.user.role === "company") {
+  navigate("/addproducts");
+} else {
+  navigate("/");
+}
       }
       else{
         // user is not found, that means the credential enterd on the form are incorrect
@@ -75,10 +82,10 @@ const Signin = () => {
                   {/* Input Form */}
         
                   <form onSubmit={handlesubmit} className='form'>            
-                    <p class="title">Sign In </p>            
+                    <p className="title">Sign In </p>            
                              
                       <label>
-                         <input class="input" 
+                         <input className="input" 
                             type="email" 
                             placeholder="Enter email"
                             value={email}
@@ -89,7 +96,7 @@ const Signin = () => {
                       </label> 
                 
                         <label>
-                        <input class="input" 
+                        <input className="input" 
                           type="password" 
                           placeholder="Password"
                           value={password}

@@ -7,38 +7,60 @@ import Signin from './Components/Signin';
 import Addproducts from './Components/Addproducts';
 import Makepayment from './Components/Makepayment';
 import Notfound from './Components/Notfound';
+import Footer from './Components/Footer';
+import Navbar from './Components/Navbar';
+import PrivateRoute from './Components/PrivateRoute';
+import CompanyDashboard from './Components/CompanyDashboard';
 
 
 function App() {
   return (
 
     <Router>
+
+      <Navbar />
+
       <div className="App">
         <header className="App-header">
         <h2>Welcome to KejaLink- The Epitome of Housing Luxury</h2>
         </header>  
-
-        <nav>
-
-          <Link to="/"  className='btn btn-primary btn-sm m-1'> Home</Link>
-
-          <Link to="/addproducts" className='btn btn-success btn-sm m-1' >Add products</Link>
-
-          <Link to="/signin" className='btn btn-danger btn-sm m-1' >Signin</Link>
-
-          <Link to="/signup" className='btn btn-info btn-sm m-1' >Signup</Link>
-
-        </nav>
+        
     
         <Routes>
             <Route path='/' element={<Getproducts />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/signin' element={<Signin />} />
-            <Route path='/addproducts' element={<Addproducts />} />
-            <Route path='/makepayment' element={<Makepayment />} />
+            {/* COMPANY ONLY */}
+            <Route 
+              path='/addproducts' 
+              element={
+                <PrivateRoute role="company">
+                  <Addproducts />
+                </PrivateRoute>
+              } 
+            />
+
+            {/* LOGGED IN USERS */}
+            <Route 
+              path='/makepayment' 
+              element={
+                <PrivateRoute>
+                  <Makepayment />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path='/company-dashboard' 
+              element={
+                <PrivateRoute role="company">
+                  <CompanyDashboard />
+                </PrivateRoute>
+              } 
+            />
             <Route path='*' element={<Notfound />} />
             
          </Routes>
+         <Footer />
         </div>
       </Router>
   );

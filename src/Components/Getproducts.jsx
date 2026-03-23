@@ -1,8 +1,9 @@
-import axios from 'axios';
+﻿import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
 import '../css/Getproducts.css'
+
 
 const Getproducts = () => {
 
@@ -49,41 +50,54 @@ const Getproducts = () => {
   },[])
 
   // console.log(products)
-
-
   return (
-    <div className='row'>
-      <h3 className="text-primary">Available products</h3>
+    <div className="container py-4">
+      <h3 className="text-center fw-bold mb-4 text-primary">✨ Available Products</h3>
 
-        {loading && <Loader/>}
-        <h4 className="text-danger"> {error} </h4>
+      {loading && <Loader />}
+      {error && <h4 className="text-danger text-center">{error}</h4>}
 
-        {/* map the products fetched from the API to the user interface  */}
-
+      <div className="row g-4">
         {products.map((product) => (
-          <div className="col-md-3 justify-content-center mb-3">
-          <div className="card shadow">
-            <img
-             src= {img_url + product.product_photo}
-             alt="product name"
-             className='product_img card-img-top'  />
+          <div key={product.id} className="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div className="card product-card h-100 border-0 shadow-sm">
 
-            <div className="card-body">
+              <div className="image-wrapper">
+                <img
+                  src={img_url + product.product_photo}
+                  alt="product"
+                  className="card-img-top product_img"
+                />
+              </div>
 
-              <h5 className="text-primary"> {product.product_name} <span className="badge bg-danger">New</span> </h5>
+              <div className="card-body d-flex flex-column">
+                <h5 className="fw-semibold text-dark">
+                  {product.product_name}
+                  <span className="badge bg-danger ms-2">New</span>
+                </h5>
 
-              <p className="text-dark"> {product.product_description.slice(0, 70)}... </p>
+                <p className="text-muted small flex-grow-1">
+                  {product.product_description?.slice(0, 70)}...
+                </p>
 
-              <h4 className="text-success">Ksh. {product.product_cost} </h4>
+                <h4 className="text-success fw-bold mb-3">
+                  Ksh. {product.product_cost}
+                </h4>
 
-              <button className="btn btn-outline-info" onClick={() => navigate("/makepayment", {state : {product}})}>Purchase Now</button>
+                <button
+                  className="btn btn-modern mt-auto"
+                  onClick={() => navigate("/makepayment", { state: { product } })}
+                >
+                  🛒 Purchase Now
+                </button>
+              </div>
+
             </div>
           </div>
-        </div>
-        ) )}
-        
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default Getproducts;

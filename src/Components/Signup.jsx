@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom'
 import '../css/Signup.css'
 
 
+
 const Signup = () => {
   // initialize the hooks
   const [username, setUsername] = useState("");
   const[email, setEmail] = useState("");
   const[password, setPassword] = useState("");
   const[phone, setPhone] = useState("");
+  const [role, setRole] = useState("visitor");
 
   // Define the three states an application will move to
   const [loading, setLoading] = useState("")
@@ -33,6 +35,7 @@ const Signup = () => {
       formdata.append("email", email);
       formdata.append("password", password);
       formdata.append("phone", phone);
+      formdata.append("role", role);
 
      // By use of axios,  we can access the method post
      const response = await axios.post("https://vicmakau.alwaysdata.net/api/signup", formdata)
@@ -60,6 +63,7 @@ const Signup = () => {
   }
 
   return (
+    <div>
     <div className='row justify-content-center'>
         
           <h5 className="text-warning mb-0"> {loading} </h5>
@@ -104,19 +108,35 @@ const Signup = () => {
 
               <label>
                 <input class="input" 
-                  type="Phone Number" 
+                  type="tel" 
                   placeholder="Phone Number"
                   required=""
                   onChange={(e) => setPhone(e.target.value)}/>
 
                   <span>Phone</span>
               </label>
+
+              <label>
+  <select 
+    className="input"
+    value={role}
+    onChange={(e) => setRole(e.target.value)}
+    required
+  >
+    <option value="visitor">Visitor</option>
+    <option value="agent">Agent</option>
+    <option value="company">Company</option>
+  </select>
+  <span>Register As</span>
+</label>
               
            <input type="submit" value="Sign Up" className='btn btn-primary' />
             Already have an account? <Link to={"/signin"}>Sign in</Link>
           </form>
-        </div>  
+        </div> 
+      </div> 
   )
+
 }
 
 export default Signup

@@ -3,6 +3,7 @@ import Loader from './Loader';
 import axios from 'axios';
 import '../css/Addproducts.css'
 
+const user = JSON.parse(localStorage.getItem("user"));
 
 
 const Addproducts = () => {
@@ -35,6 +36,7 @@ const Addproducts = () => {
       formdata.append("product_description", product_description);
       formdata.append("product_cost", product_cost);
       formdata.append("product_photo", product_photo);
+      formdata.append("user_id", user?.id);
 
       // interact with axios to hep you use the method post
       const response = await axios.post("https://vicmakau.alwaysdata.net/api/add_product", formdata)
@@ -79,9 +81,9 @@ const Addproducts = () => {
 
        
         <form onSubmit={handleSubmit} className='form'>
-            <p class="title">Welcome to Add Listings </p>
+            <p className="title">Welcome to Add Listings </p>
         <label> 
-          <input class="input"
+          <input className="input"
           type="text" 
           placeholder='Enter the Listing name'            
           required
@@ -93,7 +95,7 @@ const Addproducts = () => {
           {/* {product_name} */}
 
           <label>
-            <input class="input"
+            <input className="input"
             type="text"
           placeholder='Enter the listing description'           
           required
@@ -105,7 +107,7 @@ const Addproducts = () => {
           {/* {product_description} */}
 
           <label htmlFor="">
-            <input class="input"
+            <input className="input"
             type="number"
           placeholder='Enter the price of the listing'           
           required
@@ -118,8 +120,8 @@ const Addproducts = () => {
 
           {/* <!-- From Uiverse.io by Yaya12085 --> 
 
-            <label class="custum-file-upload" for="file">            
-            <div class="text">
+            <label className="custum-file-upload" for="file">            
+            <div className="text">
             <span>Click to upload image</span>
             </div>
             <input type="file" id="file" accept='image/*' required
@@ -140,8 +142,7 @@ const Addproducts = () => {
 
           <label className='text-primary'>Product photo</label>
           <input type="file"
-          className='form-control'
-          class="input"
+          className='form-control input'
           required
           accept='image/*'
           onChange={(e) =>setProductPhoto(e.target.files[0])}
