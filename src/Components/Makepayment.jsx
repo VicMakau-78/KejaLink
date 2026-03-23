@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+
 const Makepayment = () => {
     // introduce the hooks
       const [product_name, setProductName] = useState("");
@@ -80,12 +81,14 @@ const Makepayment = () => {
                 <b className="text-warning">Ksh. {product.product_cost} </b> <br />
 
                 <form onSubmit={handlesubmit}> 
-                    <input type="tel"
+                    <input type="number"
                     className='form-control'
-                    placeholder='Enter the Phone Number 254XXXXXXXXX' 
+                    placeholder='Enter the Phone Number 254XXXXXXXXX'
+                    value={number} 
+                    onChange={(e) => setNumber(e.target.value)}
                     required /> <br />
 
-                    <input type="submit"
+                    <input type="button"
                     value= "Make Payment"
                     className='btn btn-success' />
                 </form>

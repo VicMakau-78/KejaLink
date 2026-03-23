@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import Loader from './Loader';
 import axios from 'axios';
+import '../css/Addproducts.css'
+
+
 
 const Addproducts = () => {
   // introduce the hooks
@@ -8,6 +11,7 @@ const Addproducts = () => {
   const [product_description, setProductDescription] = useState("");
   const [product_cost, setProductCost] = useState("");
   const [product_photo, setProductPhoto] = useState("");
+//   const [preview, setPreview] = useState("");
 
   // declare the three additional hooks to manage the state of the application
   const [loading,setLoading] = useState(false);
@@ -66,9 +70,7 @@ const Addproducts = () => {
   }
 
   return (
-    <div className='row justify-content-center mt-4'>
-      <div className="col-md-6 p-4 card shadow">
-        <h3>Welcome to add products</h3>
+    <div className='row justify-content-center mt-2'>
 
         {/* bind the loading hook */}
         {loading && <Loader />}
@@ -76,49 +78,82 @@ const Addproducts = () => {
         <h4 className="text-danger"> {error} </h4>
 
        
-        <form onSubmit={handleSubmit}>
-          <input type="text" 
-          placeholder='Enter the porduct name'
-          className='form-control'
+        <form onSubmit={handleSubmit} className='form'>
+            <p class="title">Welcome to Add Listings </p>
+        <label> 
+          <input class="input"
+          type="text" 
+          placeholder='Enter the Listing name'            
           required
           value={product_name}
           onChange={(e) => setProductName(e.target.value)}/> <br />
 
+        </label> 
+
           {/* {product_name} */}
 
-          <input type="text"
-          placeholder='Enter the product description' 
-          className='form-control'
+          <label>
+            <input class="input"
+            type="text"
+          placeholder='Enter the listing description'           
           required
           value={product_description}
           onChange={(e) => setProductDescription(e.target.value)}/> <br />
 
+          </label>
+
           {/* {product_description} */}
 
-          <input type="number"
-          placeholder='Enter the price of the product'
-          className='form-control' 
+          <label htmlFor="">
+            <input class="input"
+            type="number"
+          placeholder='Enter the price of the listing'           
           required
           value={product_cost}
           onChange={(e) => setProductCost(e.target.value)}/> <br />
 
+          </label>
+
           {/* {product_cost} */}
+
+          {/* <!-- From Uiverse.io by Yaya12085 --> 
+
+            <label class="custum-file-upload" for="file">            
+            <div class="text">
+            <span>Click to upload image</span>
+            </div>
+            <input type="file" id="file" accept='image/*' required
+            onChange={(e) =>setProductPhoto(e.target.files[0])} />
+            </label>
+            Image preview display
+            {preview && (
+            <div className="preview-container">
+                <img 
+                src={preview} 
+                alt="Product Preview" 
+                style={{ width: '200px', marginTop: '10px', borderRadius: '8px' }} 
+                />
+            </div>
+            )}
+             <br /> */}
+
 
           <label className='text-primary'>Product photo</label>
           <input type="file"
           className='form-control'
+          class="input"
           required
           accept='image/*'
           onChange={(e) =>setProductPhoto(e.target.files[0])}
            /> <br />
 
           <input type="submit"
-          value="Add product"
+          value="Add Listing"
           className='btn btn-outline-primary' />
         </form>
       </div>
         
-    </div>
+
   )
 }
 

@@ -3,11 +3,25 @@ import "../css/Loader.css"; // import the external css
 const Loader = () => {
   return (
     <section className="loader">
-      <div className="slider" style={{ "--i": 0 }}></div>
-      <div className="slider" style={{ "--i": 1 }}></div>
-      <div className="slider" style={{ "--i": 2 }}></div>
-      <div className="slider" style={{ "--i": 3 }}></div>
-      <div className="slider" style={{ "--i": 4 }}></div>
+      {/* <!-- From Uiverse.io by Li-Deheng -->  */}
+      <div class="loader">
+        <div class="circle">
+          <div class="dot"></div>
+          <div class="outline"></div>
+        </div>
+        <div class="circle">
+          <div class="dot"></div>
+          <div class="outline"></div>
+        </div>
+        <div class="circle">
+          <div class="dot"></div>
+          <div class="outline"></div>
+        </div>
+        <div class="circle">
+          <div class="dot"></div>
+          <div class="outline"></div>
+        </div>
+      </div>
     </section>
   );
 };

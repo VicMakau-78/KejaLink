@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import '../css/Signin.css'
 
 const Signin = () => {
 
@@ -67,40 +68,42 @@ const Signin = () => {
 
   return (
     <div className='row justify-content-center mt-4'>
-      <div className="col-md-6 card shadow p-4">
-        <h1 className='text-primary'>Sign in</h1>
         <h5 className="text-info"> {loading} </h5>
         <h3 className="text-success"> {success} </h3>
         <h4 className="text-danger"> {error} </h4>
-
-        <form onSubmit={handlesubmit}>
-          <input type="email"
-          placeholder='Enter Email address..'
-          className='form-control'
-          required 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}/> <br />
-
-          {/* {email} */}
-
-          <input type="password"
-          placeholder='Enter password'
-          className='form-control'
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}/> <br />
-
-          {/* {password} <br /> */}
-
-          <input type="submit" 
-          value="Sign in"
-          className='btn btn-primary' /> <br />
-
-          Don't have an account? <Link to={"/signup"}>Register</Link>
-        </form>
-
+        
+                  {/* Input Form */}
+        
+                  <form onSubmit={handlesubmit} className='form'>            
+                    <p class="title">Sign In </p>            
+                             
+                      <label>
+                         <input class="input" 
+                            type="email" 
+                            placeholder="Enter email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required=""/>
+        
+                           <span>Email</span>
+                      </label> 
+                
+                        <label>
+                        <input class="input" 
+                          type="password" 
+                          placeholder="Password"
+                          value={password}
+                          required=""
+                          onChange={(e) => setPassword(e.target.value)}/>
+        
+                          <span>Password</span>
+                      </label>
+                      
+                   <input type="submit" value="Sign In" className='btn btn-primary' /><br />
+        
+                    Don't have an account? <Link to={"/signup"}>Register</Link>
+                  </form>
       </div>
-    </div>
   )
 }
 

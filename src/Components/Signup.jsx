@@ -60,7 +60,7 @@ const Signup = () => {
   }
 
   return (
-    <div className='row justify-content-center mt-5'>
+    <div className='row justify-content-center'>
         
           <h5 className="text-warning mb-0"> {loading} </h5>
           <h3 className="text-success mb-0"> {success} </h3>
@@ -112,8 +112,7 @@ const Signup = () => {
                   <span>Phone</span>
               </label>
               
-           <input type="submit" value="Sign Up" className='btn btn-primary' /><br />
-
+           <input type="submit" value="Sign Up" className='btn btn-primary' />
             Already have an account? <Link to={"/signin"}>Sign in</Link>
           </form>
         </div>  

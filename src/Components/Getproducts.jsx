@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
+import '../css/Getproducts.css'
 
 const Getproducts = () => {
 
@@ -65,11 +66,11 @@ const Getproducts = () => {
             <img
              src= {img_url + product.product_photo}
              alt="product name"
-             className='product_img mt-3'  />
+             className='product_img card-img-top'  />
 
             <div className="card-body">
 
-              <h5 className="text-primary"> {product.product_name} </h5>
+              <h5 className="text-primary"> {product.product_name} <span className="badge bg-danger">New</span> </h5>
 
               <p className="text-dark"> {product.product_description.slice(0, 70)}... </p>
 
