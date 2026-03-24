@@ -38,6 +38,10 @@ function Navbar() {
               <Link className="nav-link" to="/">Home</Link>
             </li>
 
+            <Link to="/products" className="nav-link">
+              Listings
+            </Link>
+
             {/* COMPANY ONLY */}
             {user?.role === "company" && (
               <li className="nav-item">

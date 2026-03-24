@@ -37,6 +37,8 @@ const Addproducts = () => {
       formdata.append("product_cost", product_cost);
       formdata.append("product_photo", product_photo);
       formdata.append("user_id", user?.id);
+      formdata.append("user_id", user?.id);
+      formdata.append("company_name", user?.name);   // 🔥 ADD THIS
 
       // interact with axios to hep you use the method post
       const response = await axios.post("https://vicmakau.alwaysdata.net/api/add_product", formdata)

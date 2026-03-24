@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './Components/Home';
 import Getproducts from './Components/Getproducts';
 import Signup from './Components/Signup';
 import Signin from './Components/Signin';
@@ -11,6 +12,7 @@ import Footer from './Components/Footer';
 import Navbar from './Components/Navbar';
 import PrivateRoute from './Components/PrivateRoute';
 import CompanyDashboard from './Components/CompanyDashboard';
+import CompanyPage from './Components/CompanyPage';
 
 
 function App() {
@@ -27,7 +29,8 @@ function App() {
         
     
         <Routes>
-            <Route path='/' element={<Getproducts />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/products' element={<Getproducts />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/signin' element={<Signin />} />
             {/* COMPANY ONLY */}
@@ -49,6 +52,7 @@ function App() {
                 </PrivateRoute>
               } 
             />
+            <Route path="/company" element={<CompanyPage />} />
             <Route 
               path='/company-dashboard' 
               element={
