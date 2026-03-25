@@ -16,7 +16,7 @@ const Getproducts = () => {
 
   const submitRating = async (productId, rating) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/add_rating", {
+      const res = await axios.post("https://vicmakau.alwaysdata.net/api/add_rating", {
         product_id: productId,
         rating,
       })
