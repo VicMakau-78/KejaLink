@@ -49,27 +49,12 @@ const Home = () => {
             <div className="hero-buttons">
 
               <button
-                className="btn-primary-modern"
+                className="btn-glass"
                 onClick={() => navigate("/products")}
               >
                 Explore Properties
               </button>
 
-              {user?.role === "company" ? (
-                <button
-                  className="btn-glass"
-                  onClick={() => navigate("/addproducts")}
-                >
-                  List Your Property
-                </button>
-              ) : (
-                <button
-                  className="btn-glass"
-                  onClick={() => navigate("/signin")}
-                >
-                  List Your Property
-                </button>
-              )}
 
             </div>
 

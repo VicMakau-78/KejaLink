@@ -80,7 +80,7 @@
 }
 
 .btn-primary-modern {
-  background: #d4af37;
+  background: #d48337;
   color: white;
   border: none;
   padding: 12px 25px;
@@ -91,7 +91,7 @@
 
 .btn-primary-modern:hover {
   transform: scale(1.05);
-  background: #b8962e;
+  background: #b8612e;
 }
 
 .btn-glass {

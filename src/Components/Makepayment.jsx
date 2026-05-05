@@ -40,62 +40,55 @@ const img_url = "https://vicmakau.alwaysdata.net/static/images/";
 
  const [success, setSuccess] = useState("");
 
+ const [firstName, setFirstName] = useState("");
+const [lastName, setLastName] = useState("");
+const [email, setEmail] = useState("");
+const [visitDate, setVisitDate] = useState("");
+const [visitTime, setVisitTime] = useState("");
+
 
  // create a function that will handle the submit action
 
  const handlesubmit = async (e) => {
+  e.preventDefault();
 
- // prevent site from reloading
+  setLoading(true);
 
-e.preventDefault();
+  try {
+    // 1️⃣ SAVE BOOKING FIRST
+    const bookingData = new FormData();
 
+    bookingData.append("product_id", product.product_id);
+    bookingData.append("first_name", firstName);
+    bookingData.append("last_name", lastName);
+    bookingData.append("email", email);
+    bookingData.append("phone", number);
+    bookingData.append("visit_date", visitDate);
+    bookingData.append("visit_time", visitTime);
 
- // update the loading hook
+    await axios.post(
+      "https://vicmakau.alwaysdata.net/api/book_visit",
+      bookingData
+    );
 
- setLoading(true);
+    // 2️⃣ THEN MPESA PAYMENT
+    const paymentData = new FormData();
+    paymentData.append("phone", number);
+    paymentData.append("amount", product.product_cost);
 
- try{
+    const response = await axios.post(
+      "https://kbenkamotho.alwaysdata.net/api/mpesa_payment",
+      paymentData
+    );
 
- // create a form data object
+    setSuccess("Booking saved & payment initiated!");
+    setLoading(false);
 
- const formData = new FormData();
-
-
- // append the details to the form data created above
-
- formData.append("phone", number);
-
-formData.append("amount", product.product_cost);
-
-
- const response = await axios.post("https://vicmakau.alwaysdata.net/api/mpesa_payment", formData);
-
-
- // set loading hook back to default
-
- setLoading(false);
-
-
- // update the success hook with the message from the API
-
- setSuccess(response.data.Message);
-}
-
-catch(error) {
-
-// if there is an error respond to the error
-
- setLoading(false);
-
-
- // update the error hook with the error message
-
- setError(error.message);
-
-
-}
-
-}
+  } catch (error) {
+    setLoading(false);
+    setError(error.message);
+  }
+};
 
  return (
 
@@ -149,7 +142,48 @@ className="btn btn-primary"
 
  <h4 className="text-danger"> {error} </h4>
 
+<input
+  type="text"
+  className="form-control"
+  placeholder="First Name"
+  required
+  value={firstName}
+  onChange={(e) => setFirstName(e.target.value)}
+/><br/>
 
+<input
+  type="text"
+  className="form-control"
+  placeholder="Last Name"
+  required
+  value={lastName}
+  onChange={(e) => setLastName(e.target.value)}
+/><br/>
+
+<input
+  type="email"
+  className="form-control"
+  placeholder="Email"
+  required
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+/><br/>
+
+<input
+  type="date"
+  className="form-control"
+  required
+  value={visitDate}
+  onChange={(e) => setVisitDate(e.target.value)}
+/><br/>
+
+<input
+  type="time"
+  className="form-control"
+  required
+  value={visitTime}
+  onChange={(e) => setVisitTime(e.target.value)}
+/><br/>
  <input 
 
  type="number"

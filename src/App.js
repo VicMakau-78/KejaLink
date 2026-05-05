@@ -23,9 +23,15 @@ function App() {
       <Navbar />
 
       <div className="App">
-        <header className="App-header">
-        <h2>Welcome to KejaLink- The Epitome of Housing Luxury</h2>
-        </header>  
+          <header className="App-header">
+            <div className="glass-card">
+              <p className="glass-eyebrow">Premium Real Estate</p>
+              <h2>Welcome to <span>KejaLink</span></h2>
+              <div className="glass-divider"></div>
+              <p className="glass-sub">The Epitome of Housing Luxury</p>
+            </div>
+          </header>
+        
         
     
         <Routes>

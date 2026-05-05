@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../css/Navbar.css'
 
 function Navbar() {
 
@@ -11,7 +12,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top ">
       <div className="container">
 
         {/* Brand */}
@@ -51,46 +52,6 @@ function Navbar() {
               </li>
             )}
 
-            {/* LOGGED IN USERS */}
-            {user && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/makepayment">
-                  Payments
-                </Link>
-              </li>
-            )}
-
-          </ul>
-
-          {/* RIGHT SIDE */}
-          <div className="d-flex align-items-center">
-
-            {!user ? (
-              <>
-                <Link to="/signin" className="btn btn-outline-dark btn-sm me-2">
-                  Sign In
-                </Link>
-
-                <Link to="/signup" className="btn btn-primary btn-sm">
-                  Sign Up
-                </Link>
-              </>
-            ) : (
-              <>
-                <span className="me-3 text-muted">
-                  👋 Hi, <strong>{user.username}</strong> ({user.role})
-                </span>
-
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </>
-              
-            )}
-
             {user?.role === "company" && (
             <li className="nav-item">
               <Link className="nav-link" to="/company-dashboard">
@@ -99,7 +60,35 @@ function Navbar() {
             </li>
           )}
 
-          </div>
+          </ul>
+
+          {/* RIGHT SIDE */}
+<div className="d-flex align-items-center gap-2">
+  {!user ? (
+    <>
+      <Link to="/signin" className="btn-kejalink-outline">
+        Sign In
+      </Link>
+      <Link to="/signup" className="btn-kejalink-fill">
+        Sign Up
+      </Link>
+    </>
+  ) : (
+    <>
+      <div className="d-flex align-items-center gap-2 me-2">
+        <div className="kejalink-avatar">
+          {user.username?.slice(0, 2).toUpperCase()}
+        </div>
+        <span className="text-muted" style={{ fontSize: "13.5px" }}>
+          Hi, <strong>{user.username}</strong>
+        </span>
+      </div>
+      <button className="btn-kejalink-danger" onClick={handleLogout}>
+        Logout
+      </button>
+    </>
+  )}
+</div>
 
         </div>
       </div>
