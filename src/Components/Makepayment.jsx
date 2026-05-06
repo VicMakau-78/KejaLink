@@ -41,7 +41,7 @@ const Makepayment = () => {
       paymentData.append("phone", number);
       paymentData.append("amount", product.product_cost);
 
-      await axios.post("https://kbenkamotho.alwaysdata.net/api/mpesa_payment", paymentData);
+      await axios.post("https://vicmakau.alwaysdata.net/api/mpesa_payment", paymentData);
 
       setSuccess("Booking confirmed! Check your phone to complete M-Pesa payment.");
       setLoading(false);

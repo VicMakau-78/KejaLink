@@ -13,6 +13,7 @@ import Navbar from './Components/Navbar';
 import PrivateRoute from './Components/PrivateRoute';
 import CompanyDashboard from './Components/CompanyDashboard';
 import CompanyPage from './Components/CompanyPage';
+import Chatbot from './Components/Chatbot';
 
 
 function App() {
@@ -72,6 +73,9 @@ function App() {
          </Routes>
          <Footer />
         </div>
+        {/* ======================================================================= */}
+        {/* <Chatbot /> */}
+        {/* ======================================================================== */}
       </Router>
   );
 }
