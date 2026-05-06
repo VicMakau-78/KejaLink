@@ -391,3 +391,128 @@
   border: none; border-radius: 100px;
   padding: 4px 12px; cursor: pointer;
 }
+
+/* ── Tabs ── */
+.dash-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border, #e8e4dc);
+  padding-bottom: 0;
+}
+
+.dash-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #888;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 16px;
+  cursor: pointer;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.dash-tab:hover { color: #1a1a1a; }
+
+.dash-tab-active {
+  color: #0F6E56;
+  border-bottom-color: #0F6E56;
+}
+
+.dash-tab-badge {
+  background: #f0ebe0;
+  color: #888;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+.dash-tab-active .dash-tab-badge {
+  background: #e1f5ee;
+  color: #0F6E56;
+}
+
+/* ── Bookings Grid ── */
+.dash-bookings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  padding-bottom: 3rem;
+}
+
+/* ── Booking Card ── */
+.dash-booking-card {
+  background: #fff;
+  border: 1px solid #e8e4dc;
+  border-radius: 14px;
+  padding: 1.1rem 1.3rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  animation: cardIn 0.4s ease both;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dash-booking-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dash-booking-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 3px;
+}
+
+.dash-booking-prop {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.dash-booking-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0F6E56;
+  white-space: nowrap;
+}
+
+.dash-booking-meta {
+  display: flex;
+  gap: 14px;
+  font-size: 12.5px;
+  color: #555;
+  background: #f8f7f4;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.dash-booking-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: #666;
+}
+
+.dash-booking-status {
+  display: inline-block;
+  background: #ecfdf5;
+  color: #059669;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  align-self: flex-start;
+}

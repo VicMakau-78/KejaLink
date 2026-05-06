@@ -16,9 +16,14 @@ function Footer() {
 
           {/* Section 1 */}
           <div className="col-md-4">
-            <h5>KejaLink</h5>
+            <h5 style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontWeight: 700,
+                  marginBottom: "1.2rem",
+                  letterSpacing: "-0.01em"
+                }}>KejaLink</h5>
             <p>
-              The epitome of housing luxury. Find your dream home with ease and comfort.
+              Experience the pinnacle of sophisticated living where architectural brilliance meets unparalleled comfort. Our curated collection of premier estates redefines the epitome of housing luxury, offering sanctuary-like spaces tailored to your refined taste. 
             </p>
           </div>
 
@@ -115,27 +120,123 @@ function Footer() {
   </div>
 </div>
 
-          {/* Section 3 - Social Media */}
-          <div className="col-md-4">
-            <h5>Follow Us</h5>
-            <ul className="list-unstyled">
-              <li>
-                <a href="https://facebook.com" className="text-light" target="_blank" rel="noreferrer">
-                  Facebook
-                </a>
-              </li>
-              <li>
-                <a href="https://twitter.com" className="text-light" target="_blank" rel="noreferrer">
-                  Twitter
-                </a>
-              </li>
-              <li>
-                <a href="https://instagram.com" className="text-light" target="_blank" rel="noreferrer">
-                  Instagram
-                </a>
-              </li>
-            </ul>
-          </div>
+         {/* Section 3 - Social Media */}
+<div className="col-md-4">
+  <h5 style={{
+    fontFamily: "'Playfair Display', serif",
+    fontWeight: 700,
+    marginBottom: "1.2rem",
+    letterSpacing: "-0.01em"
+  }}>Follow Us</h5>
+  <ul className="list-unstyled" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+
+    {/* Facebook */}
+    <li>
+      <a href="https://facebook.com" target="_blank" rel="noreferrer"
+        style={{
+          display: "flex", alignItems: "center", gap: "12px",
+          textDecoration: "none", color: "#e0e0e0",
+          transition: "color 0.2s, transform 0.2s",
+          fontSize: "14px", fontWeight: 500,
+        }}
+        onMouseEnter={e => e.currentTarget.style.color = "#1877F2"}
+        onMouseLeave={e => e.currentTarget.style.color = "#e0e0e0"}
+      >
+        <span style={{
+          width: "36px", height: "36px", borderRadius: "10px",
+          background: "#1877F2", display: "flex", alignItems: "center", justifyContent: "center",
+          flexShrink: 0,
+        }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </span>
+        Facebook
+      </a>
+    </li>
+
+    {/* Twitter / X */}
+    <li>
+      <a href="https://twitter.com" target="_blank" rel="noreferrer"
+        style={{
+          display: "flex", alignItems: "center", gap: "12px",
+          textDecoration: "none", color: "#e0e0e0",
+          transition: "color 0.2s",
+          fontSize: "14px", fontWeight: 500,
+        }}
+        onMouseEnter={e => e.currentTarget.style.color = "#ffffff"}
+        onMouseLeave={e => e.currentTarget.style.color = "#e0e0e0"}
+      >
+        <span style={{
+          width: "36px", height: "36px", borderRadius: "10px",
+          background: "#000000", display: "flex", alignItems: "center", justifyContent: "center",
+          flexShrink: 0, border: "1px solid rgba(255,255,255,0.15)",
+        }}>
+          {/* X logo */}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </span>
+        Twitter / X
+      </a>
+    </li>
+
+    {/* Instagram */}
+    <li>
+      <a href="https://instagram.com" target="_blank" rel="noreferrer"
+        style={{
+          display: "flex", alignItems: "center", gap: "12px",
+          textDecoration: "none", color: "#e0e0e0",
+          transition: "color 0.2s",
+          fontSize: "14px", fontWeight: 500,
+        }}
+        onMouseEnter={e => e.currentTarget.style.color = "#E1306C"}
+        onMouseLeave={e => e.currentTarget.style.color = "#e0e0e0"}
+      >
+        <span style={{
+          width: "36px", height: "36px", borderRadius: "10px",
+          background: "linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          flexShrink: 0,
+        }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/>
+          </svg>
+        </span>
+        Instagram
+      </a>
+    </li>
+
+    {/* WhatsApp */}
+    <li>
+      <a href="https://wa.me/254721840417" target="_blank" rel="noreferrer"
+        style={{
+          display: "flex", alignItems: "center", gap: "12px",
+          textDecoration: "none", color: "#e0e0e0",
+          transition: "color 0.2s",
+          fontSize: "14px", fontWeight: 500,
+        }}
+        onMouseEnter={e => e.currentTarget.style.color = "#25D366"}
+        onMouseLeave={e => e.currentTarget.style.color = "#e0e0e0"}
+      >
+        <span style={{
+          width: "36px", height: "36px", borderRadius: "10px",
+          background: "#25D366", display: "flex", alignItems: "center", justifyContent: "center",
+          flexShrink: 0,
+        }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.528 5.845L.057 23.5l5.797-1.522A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.374l-.36-.214-3.716.976.992-3.622-.235-.372A9.818 9.818 0 1 1 12 21.818z"/>
+          </svg>
+        </span>
+        WhatsApp
+      </a>
+    </li>
+
+  </ul>
+</div>
 
         </div>
 

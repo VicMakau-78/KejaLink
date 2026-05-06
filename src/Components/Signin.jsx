@@ -21,57 +21,47 @@ const Signin = () => {
   const navigate = useNavigate("");
 
   // Below is the function to handle the sign in action
-  const handlesubmit = async(e) => {
-    // Prevent the site from reloading
+const handlesubmit = async (e) => {
     e.preventDefault()
+    setLoading("Please wait as we authenticate your account...")
+    setError("");
 
-    // update the loading hook with a message
-    setLoading("Please wait as we authenticate your account")
-
-    try{
-      // Create a formData object that will hold the emial and the password
+    try {
       const formdata = new FormData()
-
-      // Insert/append the email and password on the formdata created
       formdata.append("email", email);
       formdata.append("password", password);
 
-      // interact with axios for the response
       const response = await axios.post("https://vicmakau.alwaysdata.net/api/signin", formdata);
-
-      // set loading hook back to default
       setLoading("");
 
-      // check whether the user exists as part of your response from the API
-      if(response.data && response.data.user){
-        // if user is there, definitely the details entered during signin are correct
-        // setSuccess('Log in Successful')
+      if (response.data && response.data.user) {
+        // ✅ Save to localStorage
+        localStorage.setItem("user", JSON.stringify(response.data.user));
 
-        // Store user details in local storage
+        // ✅ Tell Navbar instantly — no refresh needed
+        window.dispatchEvent(new Event("userLoggedIn"));
 
-         localStorage.setItem("user", JSON.stringify(response.data.user));
+        setSuccess("Login successful! Redirecting...");
 
-        // If it is successful, let the user get redirected to another page
-        if (response.data.user.role === "company") {
-  navigate("/addproducts");
-} else {
-  navigate("/");
-}
+        // Redirect based on role
+        setTimeout(() => {
+          if (response.data.user.role === "company") {
+            navigate("/company-dashboard");
+          } else {
+            navigate("/");
+          }
+        }, 800);
+
+      } else {
+        setError("Login failed. Please check your email and password.");
       }
-      else{
-        // user is not found, that means the credential enterd on the form are incorrect
-        setError("Log in Failed. Please Try Again...")
-      }
-    }
 
-    catch(error){
-      // set loading back to default
-      setLoading("")
-
-      // update the error hook with  message
-      setError("Oops, Something went wrong. Try again...")
+    } catch (error) {
+      setLoading("");
+      setError("Oops, something went wrong. Try again...");
     }
   }
+
 
   return (
     <div className='row justify-content-center mt-4'>
