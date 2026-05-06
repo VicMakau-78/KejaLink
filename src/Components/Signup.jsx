@@ -44,8 +44,8 @@ const Signup = () => {
      setLoading("");
 
      // Just incase everything goes on well update the success Hook with a message
-     setSuccess(response.data.message) 
-
+     // Change this line in handleSubmit:
+setSuccess(response.data.Success)  // was response.data.message — wrong key
      // Clear your Hooks
      setUsername("")
      setEmail("")
