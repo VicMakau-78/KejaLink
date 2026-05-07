@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../css/Subscription.css';
+import '../CSS/Subscription.css';
 
 const API = "https://vicmakau.alwaysdata.net/api";
 

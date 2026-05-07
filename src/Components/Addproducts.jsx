@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Loader from './Loader';
 import axios from 'axios';
 import Subscription from './Subscription';
-import '../css/Addproducts.css';
+import '../CSS/Addproducts.css';
 
 const API = "https://vicmakau.alwaysdata.net/api";
 

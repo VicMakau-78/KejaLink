@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
-import '../css/Getproducts.css';
+import '../CSS/Getproducts.css';
 import StarRating from './StarRating';
 
 const IMG_URL = "https://vicmakau.alwaysdata.net/static/images/";

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Loader from './Loader';
-import '../css/Makepayment.css';
+import '../CSS/Makepayment.css';
 
 const Makepayment = () => {
   const { product } = useLocation().state || {};

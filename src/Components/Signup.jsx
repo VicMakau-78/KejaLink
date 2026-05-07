@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-import '../css/Signup.css'
+import '../CSS/Signup.css'
 
 
 

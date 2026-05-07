@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../css/MyBookings.css';
+import '../CSS/MyBookings.css';
 
 const API     = "https://vicmakau.alwaysdata.net/api";
 const IMG_URL = "https://vicmakau.alwaysdata.net/static/images/";

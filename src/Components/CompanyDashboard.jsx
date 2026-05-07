@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import '../css/CompanyDashboard.css';
+import '../CSS/CompanyDashboard.css';
 
 const IMG_URL = "https://vicmakau.alwaysdata.net/static/images/";
 const API = "https://vicmakau.alwaysdata.net/api";

@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/Loader.css"; // import the external css
+import "../CSS/Loader.css"; // import the external css
 const Loader = () => {
   return (
     <section className="loader">
