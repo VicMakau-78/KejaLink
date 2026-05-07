@@ -124,7 +124,6 @@ setSuccess(response.data.Success)  // was response.data.message — wrong key
     required
   >
     <option value="visitor">Visitor</option>
-    <option value="agent">Agent</option>
     <option value="company">Company</option>
   </select>
   <span>Register As</span>

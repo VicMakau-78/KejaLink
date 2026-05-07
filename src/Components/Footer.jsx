@@ -183,7 +183,7 @@ function Footer() {
 
     {/* Instagram */}
     <li>
-      <a href="https://instagram.com" target="_blank" rel="noreferrer"
+      <a href="https://instagram.com/itz._kyamaz" target="_blank" rel="noreferrer"
         style={{
           display: "flex", alignItems: "center", gap: "12px",
           textDecoration: "none", color: "#e0e0e0",

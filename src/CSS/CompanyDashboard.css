@@ -516,3 +516,63 @@
   border-radius: 100px;
   align-self: flex-start;
 }
+
+/* ── Stat card sub-text ── */
+.dash-stat-sub {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 3px;
+  font-weight: 400;
+}
+
+/* ── Subscription stat card ── */
+.dash-sub-card {
+  position: relative;
+}
+.dash-sub-expired {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+.dash-sub-action-btn {
+  margin-top: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 100px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+.dash-sub-action-btn:hover { opacity: 0.85; }
+
+/* ── Property card rating row ── */
+.dash-prop-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.dash-stars {
+  display: flex;
+  gap: 1px;
+}
+.dash-rating-text {
+  font-size: 12.5px;
+  color: #555;
+  font-weight: 600;
+}
+.dash-rating-count {
+  font-weight: 400;
+  color: #aaa;
+}
+
+/* 5-column stats on wider screens */
+@media (min-width: 900px) {
+  .dash-stats-row {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

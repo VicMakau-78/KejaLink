@@ -14,6 +14,7 @@ import PrivateRoute from './Components/PrivateRoute';
 import CompanyDashboard from './Components/CompanyDashboard';
 import CompanyPage from './Components/CompanyPage';
 import Chatbot from './Components/Chatbot';
+import MyBookings from './Components/MyBookings'
 
 
 function App() {
@@ -59,6 +60,14 @@ function App() {
                 </PrivateRoute>
               } 
             />
+            <Route
+                path='/my-bookings'
+                element={
+                  <PrivateRoute>
+                    <MyBookings />
+                  </PrivateRoute>
+                }
+              />
             <Route path="/company" element={<CompanyPage />} />
             <Route 
               path='/company-dashboard' 
@@ -70,9 +79,12 @@ function App() {
             />
             <Route path='*' element={<Notfound />} />
             
+            
          </Routes>
          <Footer />
         </div>
+        
+        {/* <Subscription /> */}
         {/* ======================================================================= */}
         {/* <Chatbot /> */}
         {/* ======================================================================== */}

@@ -1,0 +1,380 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --gold: #d4af37;
+  --dark: #1a1a1a;
+  --green: #0F6E56;
+  --surface: #f8f7f4;
+  --border: #e8e4dc;
+  --muted: #888;
+  --radius: 16px;
+}
+
+.mb-page {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--surface);
+  min-height: 100vh;
+  padding: 2rem 1.5rem 4rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.mb-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.mb-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0 0 5px;
+  letter-spacing: -0.02em;
+}
+.mb-subtitle {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 300;
+}
+
+.mb-explore-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--dark);
+  border: none;
+  border-radius: 100px;
+  padding: 10px 22px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s, transform 0.15s;
+}
+.mb-explore-btn:hover {
+  background: var(--green);
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+/* ── Summary pills ── */
+.mb-summary-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.mb-summary-pill {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+  transition: box-shadow 0.2s;
+}
+.mb-summary-pill:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+.mb-summary-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1;
+}
+.mb-summary-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+.mb-summary-upcoming .mb-summary-num { color: var(--green); }
+.mb-summary-past .mb-summary-num { color: #888; }
+
+/* ── Filter tabs ── */
+.mb-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+.mb-filter-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #888;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 16px;
+  cursor: pointer;
+  margin-bottom: -2px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.mb-filter-btn:hover { color: var(--dark); }
+.mb-filter-btn.active {
+  color: var(--green);
+  border-bottom-color: var(--green);
+}
+.mb-filter-count {
+  background: #f0ebe0;
+  color: #888;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+.mb-filter-btn.active .mb-filter-count {
+  background: #e1f5ee;
+  color: var(--green);
+}
+
+/* ── Loading ── */
+.mb-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 3rem 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.mb-spinner {
+  width: 22px; height: 22px;
+  border: 2px solid var(--border);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Error ── */
+.mb-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: #991b1b;
+  font-size: 14px;
+  margin-bottom: 1rem;
+}
+
+/* ── Empty state ── */
+.mb-empty {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.mb-empty p { font-size: 15px; margin: 0; }
+
+/* ── Grid ── */
+.mb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+/* ── Booking Card ── */
+.mb-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s, transform 0.25s;
+  animation: cardIn 0.45s ease both;
+}
+.mb-card:hover {
+  box-shadow: 0 10px 32px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+.mb-card-past {
+  opacity: 0.85;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mb-card:nth-child(1) { animation-delay: 0.05s; }
+.mb-card:nth-child(2) { animation-delay: 0.1s; }
+.mb-card:nth-child(3) { animation-delay: 0.15s; }
+.mb-card:nth-child(4) { animation-delay: 0.2s; }
+
+/* Card image */
+.mb-card-img-wrap {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+.mb-card-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.mb-card:hover .mb-card-img-wrap img {
+  transform: scale(1.05);
+}
+.mb-card-price-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  padding: 1.2rem 1rem 0.8rem;
+}
+.mb-card-price-overlay span {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Status badge */
+.mb-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.mb-badge-upcoming {
+  background: rgba(15,110,86,0.9);
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+.mb-badge-today {
+  background: rgba(212,175,55,0.95);
+  color: #1a1a1a;
+  backdrop-filter: blur(6px);
+}
+.mb-badge-past {
+  background: rgba(100,100,100,0.7);
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+
+/* Card body */
+.mb-card-body { padding: 1.2rem 1.3rem 1.3rem; }
+
+.mb-prop-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin: 0 0 12px;
+  line-height: 1.3;
+  transition: color 0.2s;
+}
+.mb-card:hover .mb-prop-name { color: var(--green); }
+
+/* Company row */
+.mb-company-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.mb-company-avatar {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0a3d2b, #1D9E75);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff;
+  flex-shrink: 0;
+}
+.mb-company-name {
+  font-size: 13px; font-weight: 600;
+  color: var(--dark); margin: 0 0 2px;
+}
+.mb-company-email {
+  font-size: 11px; color: var(--muted); margin: 0;
+}
+
+.mb-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 12px 0;
+}
+
+/* Details grid */
+.mb-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.mb-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  color: var(--muted);
+}
+.mb-detail-item svg { flex-shrink: 0; margin-top: 2px; }
+.mb-detail-label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #bbb;
+  font-weight: 600;
+}
+.mb-detail-value {
+  display: block;
+  font-size: 12.5px;
+  color: var(--dark);
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.mb-booked-on {
+  font-size: 11px;
+  color: #bbb;
+  margin: 8px 0 0;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+/* Rebook button */
+.mb-rebook-btn {
+  width: 100%;
+  margin-top: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+  background: #e1f5ee;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.mb-rebook-btn:hover { background: #c7ede0; }
+
+@media (max-width: 640px) {
+  .mb-details-grid { grid-template-columns: 1fr; }
+  .mb-grid { grid-template-columns: 1fr; }
+}

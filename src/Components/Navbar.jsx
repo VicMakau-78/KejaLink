@@ -73,6 +73,11 @@ function Navbar() {
                 <Link className="nav-link" to="/company-dashboard">Dashboard</Link>
               </li>
             )}
+            {user && user.role !== "company" && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/my-bookings">My Bookings</Link>
+              </li>
+            )}
           </ul>
 
           {/* RIGHT SIDE */}

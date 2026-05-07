@@ -6,20 +6,74 @@ import '../css/CompanyDashboard.css';
 const IMG_URL = "https://vicmakau.alwaysdata.net/static/images/";
 const API = "https://vicmakau.alwaysdata.net/api";
 
-const StatCard = ({ icon, label, value, accent }) => (
+// ── Stat Card ──
+const StatCard = ({ icon, label, value, accent, sub }) => (
   <div className="dash-stat-card" style={{ '--accent': accent }}>
     <div className="dash-stat-icon">{icon}</div>
     <div className="dash-stat-value">{value}</div>
     <div className="dash-stat-label">{label}</div>
+    {sub && <div className="dash-stat-sub">{sub}</div>}
   </div>
 );
 
+// ── Subscription Days Card ──
+const SubCard = ({ subStatus, onManage }) => {
+  if (!subStatus) return null;
+
+  const { has_active, is_trial, plan_name, days_left, end_date, trial_used } = subStatus;
+
+  if (!has_active) {
+    return (
+      <div className="dash-stat-card dash-sub-card dash-sub-expired" style={{ '--accent': '#dc2626' }}>
+        <div className="dash-stat-icon">⚠️</div>
+        <div className="dash-stat-value" style={{ fontSize: '1.2rem' }}>
+          {trial_used ? "Expired" : "No Plan"}
+        </div>
+        <div className="dash-stat-label">Subscription</div>
+        <button className="dash-sub-action-btn" onClick={onManage}>
+          {trial_used ? "Renew Now" : "Get Started"}
+        </button>
+      </div>
+    );
+  }
+
+  // Color based on urgency
+  const accent = days_left <= 2 ? '#dc2626'
+               : days_left <= 5 ? '#d97706'
+               : '#0F6E56';
+
+  const planLabel = is_trial ? "Free Trial"
+    : plan_name ? plan_name.charAt(0).toUpperCase() + plan_name.slice(1) + " Plan"
+    : "Active";
+
+  return (
+    <div className="dash-stat-card dash-sub-card" style={{ '--accent': accent }}>
+      <div className="dash-stat-icon">
+        {is_trial ? "🕐" : plan_name === "premium" ? "👑" : plan_name === "optimum" ? "🏢" : "🏠"}
+      </div>
+      <div className="dash-stat-value" style={{ color: accent }}>
+        {days_left}d
+      </div>
+      <div className="dash-stat-label">{planLabel}</div>
+      <div className="dash-stat-sub">Expires {end_date}</div>
+      {days_left <= 5 && (
+        <button className="dash-sub-action-btn" onClick={onManage}>
+          {is_trial ? "Subscribe Now" : "Renew"}
+        </button>
+      )}
+    </div>
+  );
+};
+
+// ── Property Card ──
 const PropertyCard = ({ item, onDelete }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const imgSrc = item.product_photo
     ? IMG_URL + item.product_photo
     : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80';
+
+  const stars = Math.round(Number(item.avg_rating) || 0);
 
   return (
     <div className="dash-property-card">
@@ -36,9 +90,21 @@ const PropertyCard = ({ item, onDelete }) => {
 
       <div className="dash-card-body">
         <h3 className="dash-prop-title">{item.product_name}</h3>
-        <p className="dash-prop-desc">
-          {item.product_description?.slice(0, 75)}...
-        </p>
+        <p className="dash-prop-desc">{item.product_description?.slice(0, 75)}...</p>
+
+        {/* ── Star rating display ── */}
+        <div className="dash-prop-rating">
+          <div className="dash-stars">
+            {[1,2,3,4,5].map(s => (
+              <span key={s} style={{ color: s <= stars ? '#d4af37' : '#d1d5db', fontSize: '14px' }}>★</span>
+            ))}
+          </div>
+          <span className="dash-rating-text">
+            {item.avg_rating ? Number(item.avg_rating).toFixed(1) : '0.0'}
+            <span className="dash-rating-count"> ({item.total_ratings || 0})</span>
+          </span>
+        </div>
+
         <div className="dash-card-actions">
           <button className="dash-btn-edit">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -70,7 +136,7 @@ const PropertyCard = ({ item, onDelete }) => {
   );
 };
 
-// ── Booking row card ──
+// ── Booking Card ──
 const BookingCard = ({ booking }) => (
   <div className="dash-booking-card">
     <div className="dash-booking-top">
@@ -92,29 +158,27 @@ const BookingCard = ({ booking }) => (
   </div>
 );
 
+// ── Main Dashboard ──
 const CompanyDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const [properties, setProperties] = useState([]);
-  const [bookings, setBookings] = useState([]);
-  const [loadingProps, setLoadingProps] = useState(false);
+  const [properties, setProperties]       = useState([]);
+  const [bookings, setBookings]           = useState([]);
+  const [subStatus, setSubStatus]         = useState(null);
+  const [loadingProps, setLoadingProps]   = useState(false);
   const [loadingBookings, setLoadingBookings] = useState(false);
-  const [toast, setToast] = useState("");
-  const [activeTab, setActiveTab] = useState("properties");
+  const [toast, setToast]                 = useState("");
+  const [activeTab, setActiveTab]         = useState("properties");
+  const [showSubModal, setShowSubModal]   = useState(false);
 
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(""), 3000);
-  };
+  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(""), 3000); };
 
-  // ── Fetch this company's properties ──
+  // ── Fetch properties ──
   const fetchMyProperties = useCallback(async () => {
     if (!user?.user_id) return;
     setLoadingProps(true);
     try {
       const res = await axios.get(`${API}/get_product_details`);
-      const mine = res.data.filter(
-        (item) => String(item.user_id) === String(user.user_id)
-      );
+      const mine = res.data.filter(item => String(item.user_id) === String(user.user_id));
       setProperties(mine);
     } catch (err) {
       console.error("Properties fetch error:", err);
@@ -123,21 +187,28 @@ const CompanyDashboard = () => {
     }
   }, [user?.user_id]);
 
-  // ── Fetch bookings for this company ──
+  // ── Fetch bookings ──
   const fetchBookings = useCallback(async () => {
-    if (!user?.user_id) {
-      console.warn("No user_id found in localStorage user object:", user);
-      return;
-    }
+    if (!user?.user_id) return;
     setLoadingBookings(true);
     try {
       const res = await axios.get(`${API}/get_bookings/${user.user_id}`);
-      console.log("Bookings fetched:", res.data); // debug
       setBookings(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error("Bookings fetch error:", err.response?.data || err.message);
     } finally {
       setLoadingBookings(false);
+    }
+  }, [user?.user_id]);
+
+  // ── Fetch subscription status ──
+  const fetchSubStatus = useCallback(async () => {
+    if (!user?.user_id) return;
+    try {
+      const res = await axios.get(`${API}/subscription_status/${user.user_id}`);
+      setSubStatus(res.data);
+    } catch (err) {
+      console.error("Subscription fetch error:", err);
     }
   }, [user?.user_id]);
 
@@ -154,7 +225,19 @@ const CompanyDashboard = () => {
   useEffect(() => {
     fetchMyProperties();
     fetchBookings();
-  }, [fetchMyProperties, fetchBookings]);
+    fetchSubStatus();
+  }, [fetchMyProperties, fetchBookings, fetchSubStatus]);
+
+  // ── Calculate avg rating across ALL company properties ──
+  const ratingsWithData = properties.filter(p => p.avg_rating && Number(p.avg_rating) > 0);
+  const overallAvgRating = ratingsWithData.length > 0
+    ? (ratingsWithData.reduce((sum, p) => sum + Number(p.avg_rating), 0) / ratingsWithData.length).toFixed(1)
+    : null;
+
+  const totalRatings = properties.reduce((sum, p) => sum + Number(p.total_ratings || 0), 0);
+
+  // ── Render avg rating stars ──
+  const avgStars = Math.round(Number(overallAvgRating) || 0);
 
   const initials = user?.username?.slice(0, 2).toUpperCase() || 'CO';
 
@@ -163,6 +246,36 @@ const CompanyDashboard = () => {
 
       {/* Toast */}
       {toast && <div className="dash-toast">{toast}</div>}
+
+      {/* Subscription modal */}
+      {showSubModal && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 1000,
+          background: 'rgba(0,0,0,0.5)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center'
+        }}>
+          {/* Lazy-load Subscription to avoid circular imports */}
+          <div style={{ background: '#fff', borderRadius: 20, padding: '2rem', maxWidth: 400, width: '90%', textAlign: 'center' }}>
+            <h3 style={{ fontFamily: 'Playfair Display, serif', marginBottom: '1rem' }}>Manage Subscription</h3>
+            <p style={{ color: '#888', fontSize: '14px', marginBottom: '1.5rem' }}>
+              Go to Add Property page to manage your subscription plan.
+            </p>
+            <Link to="/addproducts" style={{
+              display: 'inline-block', background: '#0F6E56', color: '#fff',
+              borderRadius: 100, padding: '10px 24px', textDecoration: 'none',
+              fontWeight: 600, fontSize: '14px', marginRight: '10px'
+            }}>
+              Go to Plans
+            </Link>
+            <button onClick={() => setShowSubModal(false)} style={{
+              background: '#f0ebe0', border: 'none', borderRadius: 100,
+              padding: '10px 20px', cursor: 'pointer', fontWeight: 600, fontSize: '14px'
+            }}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Header */}
       <div className="dash-header">
@@ -181,17 +294,50 @@ const CompanyDashboard = () => {
         </Link>
       </div>
 
-      {/* Stats */}
+      {/* Stats — now 5 cards */}
       <div className="dash-stats-row">
-        <StatCard icon="🏠" label="Total Listings"   value={properties.length}                   accent="#0F6E56" />
-        <StatCard icon="📅" label="Total Bookings"   value={loadingBookings ? "..." : bookings.length} accent="#d97706" />
-        <StatCard icon="💰" label="Est. Revenue"
+        <StatCard
+          icon="🏠"
+          label="Total Listings"
+          value={properties.length}
+          accent="#0F6E56"
+        />
+        <StatCard
+          icon="📅"
+          label="Total Bookings"
+          value={loadingBookings ? "..." : bookings.length}
+          accent="#d97706"
+        />
+        <StatCard
+          icon="💰"
+          label="Est. Revenue"
           value={bookings.length
             ? `Ksh ${bookings.reduce((s, b) => s + Number(b.product_cost || 0), 0).toLocaleString()}`
             : "Ksh 0"}
           accent="#7c3aed"
         />
-        <StatCard icon="⭐" label="Avg Rating" value="—" accent="#db2777" />
+
+        {/* ── Avg Rating card ── */}
+        <div className="dash-stat-card" style={{ '--accent': '#d4af37' }}>
+          <div className="dash-stat-icon">⭐</div>
+          <div className="dash-stat-value" style={{ fontSize: overallAvgRating ? '2rem' : '1.2rem' }}>
+            {overallAvgRating ?? "No ratings"}
+          </div>
+          {overallAvgRating && (
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '2px', margin: '4px 0' }}>
+              {[1,2,3,4,5].map(s => (
+                <span key={s} style={{ color: s <= avgStars ? '#d4af37' : '#e5e7eb', fontSize: '13px' }}>★</span>
+              ))}
+            </div>
+          )}
+          <div className="dash-stat-label">Avg Rating</div>
+          {totalRatings > 0 && (
+            <div className="dash-stat-sub">{totalRatings} review{totalRatings !== 1 ? 's' : ''}</div>
+          )}
+        </div>
+
+        {/* ── Subscription days card ── */}
+        <SubCard subStatus={subStatus} onManage={() => setShowSubModal(true)} />
       </div>
 
       {/* Tabs */}
@@ -212,14 +358,11 @@ const CompanyDashboard = () => {
         </button>
       </div>
 
-      {/* ── Properties Tab ── */}
+      {/* Properties Tab */}
       {activeTab === 'properties' && (
         <>
           {loadingProps && (
-            <div className="dash-loading">
-              <div className="dash-spinner" />
-              <span>Loading your properties...</span>
-            </div>
+            <div className="dash-loading"><div className="dash-spinner" /><span>Loading your properties...</span></div>
           )}
           {!loadingProps && properties.length === 0 && (
             <div className="dash-empty">
@@ -228,27 +371,22 @@ const CompanyDashboard = () => {
                 <polyline points="9 22 9 12 15 12 15 22"/>
               </svg>
               <p>No properties yet.</p>
-              <Link to="/addproducts" className="dash-add-btn" style={{ marginTop: '1rem' }}>
-                + Add your first property
-              </Link>
+              <Link to="/addproducts" className="dash-add-btn" style={{ marginTop: '1rem' }}>+ Add your first property</Link>
             </div>
           )}
           <div className="dash-properties-grid">
-            {properties.map((item) => (
+            {properties.map(item => (
               <PropertyCard key={item.product_id} item={item} onDelete={handleDelete} />
             ))}
           </div>
         </>
       )}
 
-      {/* ── Bookings Tab ── */}
+      {/* Bookings Tab */}
       {activeTab === 'bookings' && (
         <>
           {loadingBookings && (
-            <div className="dash-loading">
-              <div className="dash-spinner" />
-              <span>Loading bookings...</span>
-            </div>
+            <div className="dash-loading"><div className="dash-spinner" /><span>Loading bookings...</span></div>
           )}
           {!loadingBookings && bookings.length === 0 && (
             <div className="dash-empty">
@@ -260,7 +398,7 @@ const CompanyDashboard = () => {
             </div>
           )}
           <div className="dash-bookings-grid">
-            {bookings.map((booking) => (
+            {bookings.map(booking => (
               <BookingCard key={booking.booking_id} booking={booking} />
             ))}
           </div>
